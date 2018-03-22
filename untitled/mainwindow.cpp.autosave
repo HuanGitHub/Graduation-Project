@@ -30,6 +30,12 @@ void MainWindow::deleteLater()
     qDebug() << "Client disconnect: ";
 
 }
+void MainWindow::checkData()
+{
+    
+    
+    
+}
 void MainWindow::readData()
 {
     QTcpSocket* myClient = qobject_cast<QTcpSocket*>(sender());
