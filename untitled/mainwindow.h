@@ -3,6 +3,10 @@
 
 #include <QMainWindow>
 #include <QtNetwork/qtcpserver.h>
+#include <qjsondocument.h>
+
+#define Ser_IP "127.0.0.1"
+#define Ser_Port 8080
 namespace Ui {
 class MainWindow;
 }
@@ -16,7 +20,7 @@ public:
 
     ~MainWindow();
     void NewCon();
-
+    void checkData();
 private slots:
     void newClient();
     void deleteLater();
@@ -25,6 +29,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QTcpServer *Qser;
+    QByteArray arry;
+    QJsonDocument doucment;
 
 };
 
