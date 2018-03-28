@@ -19,3 +19,8 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    qrc.qrc
+
+OTHER_FILES +=
