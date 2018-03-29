@@ -8,6 +8,7 @@
 #include <qjsonobject.h>
 #include <QTimer>
 #include <QDateTime>
+#define Ser_IP  "192.168.0.109"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -17,10 +18,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     statShowUI();
     Init_label();
-//    Qser = new QTcpServer(this);
-//    Qser->listen(QHostAddress(Ser_IP),Ser_Port);
- //   connect(Qser, SIGNAL(newConnection()), this, SLOT(newClient()));
-    QFile file("/home/zhanghuan/data.json");
+    Qser = new QTcpServer(this);
+    Qser->listen(QHostAddress(Ser_IP),8080);
+    connect(Qser, SIGNAL(newConnection()), this, SLOT(newClient()));
+    QFile file("../../data.json");
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         qDebug()<<"Can't open the file!"<<endl;
@@ -177,20 +178,23 @@ void MainWindow::deleteLater()
     qDebug() << "Client disconnect: ";
 
 }
-void MainWindow::checkData()
-{
 
-
-
-}
 void MainWindow::readData()
 {
     QTcpSocket* myClient = qobject_cast<QTcpSocket*>(sender());
     QByteArray data = myClient->readAll();
-    qDebug()<< data;
-    QByteArray Hexdata = data.toHex();
-    for(int i=0;i<Hexdata.size();i++)
-        qDebug()<<Hexdata[i];
+    QString str;
+
+    for(int i=0;i<data.count();i++)
+    {
+        QString s;
+        s.sprintf("0x%02x",(unsigned char)data.at(i));
+        int k = s.toInt(0,16);
+        s = QString::number(k, 10);
+        qDebug()<< s;
+//      str += s;
+    }
+
 }
 void MainWindow::get_UARTdata()
 {

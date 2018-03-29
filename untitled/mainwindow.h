@@ -5,6 +5,7 @@
 #include <QtNetwork/qtcpserver.h>
 #include <qjsondocument.h>
 #include <QTime>
+#include <QtNetwork/qtcpserver.h>
 #define Ser_IP "127.0.0.1"
 #define Ser_Port 8080
 namespace Ui {
@@ -64,6 +65,7 @@ private:
     QByteArray arry;
     QJsonDocument doucment;
     QTimer *timer1;
+
 
 };
 
