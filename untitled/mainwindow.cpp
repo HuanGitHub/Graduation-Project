@@ -32,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(timer1, SIGNAL(timeout()), this, SLOT(RefreshTime()));
     timer1->start(1000);
 
+    connect(ui->pushButton_exit,SIGNAL(clicked()),this,SLOT(exit()));
+
 }
 
 void MainWindow::statShowUI()
@@ -45,28 +47,22 @@ void MainWindow::statShowUI()
     ui->frame_Head->setStyleSheet("border-image:url(:/qrc/bg.png);");
     ui->local_city->setText(" Local city: dalian ");
     ui->local_city->setStyleSheet("background-color:green;color:white");
-    ui->pushButton->setStyleSheet("QPushButton{background-color:black;\
+    ui->pushButton_door->setStyleSheet("QPushButton{background-color:black;\
                                                color: white;   border-radius: 10px;  border: 2px groove gray;\
                                                border-style: outset;}"
                                               "QPushButton:hover{background-color:white; color: black;}"
                                              "QPushButton:pressed{background-color:rgb(85, 170, 255);\
                                               border-style: inset; }"
                                               );
-    ui->pushButton_3->setStyleSheet("QPushButton{background-color:black;\
+    ui->pushButton_exit->setStyleSheet("QPushButton{background-color:black;\
                                                color: white;   border-radius: 10px;  border: 2px groove gray;\
                                                border-style: outset;}"
                                               "QPushButton:hover{background-color:white; color: black;}"
                                              "QPushButton:pressed{background-color:rgb(85, 170, 255);\
                                               border-style: inset; }"
                                               );
-                                              ui->pushButton_2->setStyleSheet("QPushButton{background-color:black;\
-                                                                                         color: white;   border-radius: 10px;  border: 2px groove gray;\
-                                                                                         border-style: outset;}"
-                                                                                        "QPushButton:hover{background-color:white; color: black;}"
-                                                                                       "QPushButton:pressed{background-color:rgb(85, 170, 255);\
-                                                                                        border-style: inset; }"
-                                                                                        );
-    ui->pushButton_2->setStyleSheet("QPushButton{background-color:black;\
+
+    ui->pushButton_light->setStyleSheet("QPushButton{background-color:black;\
                                                color: white;   border-radius: 10px;  border: 2px groove gray;\
                                                border-style: outset;}"
                                               "QPushButton:hover{background-color:white; color: black;}"
@@ -261,7 +257,12 @@ QString MainWindow::get_json(QByteArray line,QString value)
     }
     qDebug()<<rstr;
     return rstr;
+}
 
+void MainWindow::exit()
+{
+    qDebug()<<"tt";
+    exit();
 }
 MainWindow::~MainWindow()
 {

@@ -266,7 +266,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="pushButton_exit">
     <property name="geometry">
      <rect>
       <x>1060</x>
@@ -279,7 +279,7 @@
      <string>EXIT</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="pushButton_door">
     <property name="geometry">
      <rect>
       <x>940</x>
@@ -292,7 +292,7 @@
      <string>Open door</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="pushButton_light">
     <property name="geometry">
      <rect>
       <x>810</x>
@@ -312,9 +312,9 @@
    <zorder>frame_Head</zorder>
    <zorder>local_city</zorder>
    <zorder>verticalLayoutWidget_5</zorder>
-   <zorder>pushButton_2</zorder>
-   <zorder>pushButton</zorder>
-   <zorder>pushButton_3</zorder>
+   <zorder>pushButton_exit</zorder>
+   <zorder>pushButton_door</zorder>
+   <zorder>pushButton_light</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

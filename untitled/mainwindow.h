@@ -55,6 +55,7 @@ private slots:
     void deleteLater();
     void readData();
     void RefreshTime();
+    void exit();
 
 
 private:
