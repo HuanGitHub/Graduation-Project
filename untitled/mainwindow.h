@@ -24,18 +24,37 @@ public:
          QString air_quality;
          QString noxious_gas;
     }Tcp_Rxdata;
+    struct API_DATA{
+        QString fengxiang;
+        QString tiganwendu;
+        QString xiangduisidu;
+        QString feng;
+        QString wendu;
+
+        QString yundongzhishu;
+        QString huwaizhishu;
+        QString UV_index;
+        QString Cold_index;
+        QString Air_quality;
+        QString Dress_index;
+
+
+    }API_data;
     ~MainWindow();
     void NewCon();
     void checkData();
-    void deal_json();
+    void deal_json(QByteArray line);
     void statShowUI();
-
+    void Init_label();
+    QString get_json(QByteArray line,QString value);
+    void deal_data(QJsonObject Jobject,QString str,QString *rstr);
 
 private slots:
     void newClient();
     void deleteLater();
     void readData();
     void RefreshTime();
+
 
 private:
     Ui::MainWindow *ui;
