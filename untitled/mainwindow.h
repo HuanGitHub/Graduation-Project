@@ -43,7 +43,8 @@ public:
     ~MainWindow();
     void NewCon();
     void checkData();
-    void deal_json(QByteArray line);
+    void get_UARTdata();
+    void get_APIdata();
     void statShowUI();
     void Init_label();
     QString get_json(QByteArray line,QString value);

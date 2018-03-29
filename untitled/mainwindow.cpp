@@ -27,12 +27,13 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     QByteArray line = file.readAll();
     QString str(line);
-    get_json(line,"tx2");
+    API_data.Air_quality = get_json(line,"tx2");
 
     connect(timer1, SIGNAL(timeout()), this, SLOT(RefreshTime()));
     timer1->start(1000);
 
 }
+
 void MainWindow::statShowUI()
 {
 
@@ -77,6 +78,7 @@ void MainWindow::statShowUI()
     ui->centralWidget->setStyleSheet("background-color:#96CDCD;");
 
 }
+
 void MainWindow::Init_label()
 {
     Tcp_Rxdata.air_quality="NULL";
@@ -149,12 +151,14 @@ void MainWindow::Init_label()
 
 void MainWindow::RefreshTime()
 {
-//    qDebug() << "time out";
     QDateTime current_date_time = QDateTime::currentDateTime();
     QString current_date = current_date_time.toString("yyyy.MM.dd hh:mm:ss");
     QString current_week = current_date_time.toString("dddd");
     ui->lcdNumber->display(current_date);
     ui->week->setText("  "+current_week);
+
+    get_APIdata();
+    get_UARTdata();
 
 }
 
@@ -192,11 +196,16 @@ void MainWindow::readData()
     for(int i=0;i<Hexdata.size();i++)
         qDebug()<<Hexdata[i];
 }
-
-void MainWindow::deal_json(QByteArray line)
+void MainWindow::get_UARTdata()
 {
 
 }
+void MainWindow::get_APIdata()
+{
+
+
+}
+
 void MainWindow::deal_data(QJsonObject Jobject,QString str,QString *rstr)
 {
     if(Jobject.contains(str))
@@ -207,13 +216,11 @@ void MainWindow::deal_data(QJsonObject Jobject,QString str,QString *rstr)
             qDebug()<<str+"is a array";
             qDebug()<<str<<":"<<value;
         }else{
- //           qDebug()<<str<<":"<<value;
             *rstr = value.toString();
         }
 
     }else{
         QStringList oblist = Jobject.keys();
-        qDebug()<<"oblist:"<<oblist;
         for(int i=0;i<oblist.count();i++)
         {
             QJsonValue value = Jobject.value(oblist[i]);
