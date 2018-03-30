@@ -6,6 +6,7 @@
 #include <qjsondocument.h>
 #include <QTime>
 #include <QtNetwork/qtcpserver.h>
+#include <QImage>
 #define Ser_IP "127.0.0.1"
 #define Ser_Port 8080
 namespace Ui {
@@ -18,6 +19,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    QByteArray File_line[256];
     struct TCP_Rxdata{
          QString temperature;
          QString humidity;
@@ -25,19 +27,25 @@ public:
          QString air_quality;
          QString noxious_gas;
     }Tcp_Rxdata;
-    struct API_DATA{
-        QString fengxiang;
-        QString tiganwendu;
-        QString xiangduisidu;
-        QString feng;
-        QString wendu;
 
-        QString yundongzhishu;
-        QString huwaizhishu;
-        QString UV_index;
-        QString Cold_index;
-        QString Air_quality;
-        QString Dress_index;
+    struct API_DATA{
+        QString fl;
+        QString tmp;
+        QString cond_txt;
+        QString wind_dir;
+        QString wind_sc;
+        QString hum;
+        QString vis;
+
+        QString comf;
+        QString drsg;
+        QString flu;
+        QString sport;
+        QString trav;
+        QString uv;
+        QString cw;
+        QString air;
+
 
 
     }API_data;
@@ -50,7 +58,9 @@ public:
     void Init_label();
     QString get_json(QByteArray line,QString value);
     void deal_data(QJsonObject Jobject,QString str,QString *rstr);
-
+    void Open_TCPServer();
+    void Show_Tcp_stat();
+    void File_Open(QString File_path);
 private slots:
     void newClient();
     void deleteLater();
@@ -65,6 +75,8 @@ private:
     QByteArray arry;
     QJsonDocument doucment;
     QTimer *timer1;
+    int Cli_Num;
+    QImage* img;
 
 
 };

@@ -40,8 +40,8 @@
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>230</y>
+      <x>20</x>
+      <y>220</y>
       <width>271</width>
       <height>371</height>
      </rect>
@@ -103,8 +103,8 @@
    <widget class="QFrame" name="frame_2">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>210</y>
+      <x>610</x>
+      <y>200</y>
       <width>491</width>
       <height>441</height>
      </rect>
@@ -168,6 +168,12 @@
        </widget>
       </item>
      </layout>
+     <zorder>label_11</zorder>
+     <zorder>label_12</zorder>
+     <zorder>label_13</zorder>
+     <zorder>label_14</zorder>
+     <zorder>label_16</zorder>
+     <zorder>label_15</zorder>
     </widget>
    </widget>
    <widget class="QLabel" name="week">
@@ -305,6 +311,19 @@
      <string>Open light</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label_17">
+    <property name="geometry">
+     <rect>
+      <x>910</x>
+      <y>740</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>frame</zorder>
    <zorder>frame_2</zorder>
    <zorder>week</zorder>
@@ -315,6 +334,7 @@
    <zorder>pushButton_exit</zorder>
    <zorder>pushButton_door</zorder>
    <zorder>pushButton_light</zorder>
+   <zorder>label_17</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

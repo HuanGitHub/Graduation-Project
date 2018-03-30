@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>qrc/bg.png</file>
         <file>qrc/bg1.png</file>
+        <file>qrc/green.png</file>
+        <file>qrc/red.png</file>
     </qresource>
 </RCC>

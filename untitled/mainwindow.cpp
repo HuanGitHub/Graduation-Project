@@ -8,39 +8,52 @@
 #include <qjsonobject.h>
 #include <QTimer>
 #include <QDateTime>
+#include <QImage>
 #define Ser_IP  "192.168.0.109"
+QString File_Path = "./data.json";
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    Cli_Num = 0;
     timer1 = new QTimer();
 
     ui->setupUi(this);
     statShowUI();
     Init_label();
-    Qser = new QTcpServer(this);
-    Qser->listen(QHostAddress(Ser_IP),8080);
-    connect(Qser, SIGNAL(newConnection()), this, SLOT(newClient()));
-    QFile file("../../data.json");
-    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        qDebug()<<"Can't open the file!"<<endl;
-    }
-    QByteArray line = file.readAll();
-    QString str(line);
-    API_data.Air_quality = get_json(line,"tx2");
 
+    Open_TCPServer();
     connect(timer1, SIGNAL(timeout()), this, SLOT(RefreshTime()));
     timer1->start(1000);
 
     connect(ui->pushButton_exit,SIGNAL(clicked()),this,SLOT(exit()));
 
 }
-
+void MainWindow::File_Open(QString File_path)
+{
+    QByteArray line;
+    int i =0;
+    QFile file(File_path);
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        qDebug()<<"Can't open the file!"<<endl;
+    }
+    while((line =file.readLine()) != "")
+    {
+        File_line[i] = line;
+        i++;
+    }
+    file.close();
+}
+void MainWindow::Open_TCPServer()
+{
+    Qser = new QTcpServer(this);
+    Qser->listen(QHostAddress(Ser_IP),8080);
+    connect(Qser, SIGNAL(newConnection()), this, SLOT(newClient()));
+}
 void MainWindow::statShowUI()
 {
-
-
     ui->week->setStyleSheet("color:white;background-color:#009ACD;");
     ui->lcdNumber->setDigitCount(19);
     ui->lcdNumber->setSegmentStyle(QLCDNumber::Flat);
@@ -73,7 +86,6 @@ void MainWindow::statShowUI()
 
     ui->frame->setStyleSheet("background-color:#009ACD;");
     ui->centralWidget->setStyleSheet("background-color:#96CDCD;");
-
 }
 
 void MainWindow::Init_label()
@@ -105,7 +117,7 @@ void MainWindow::Init_label()
     ui->label_14->setStyleSheet("font:18px");
     ui->label_15->setStyleSheet("font:18px");
     ui->label_16->setStyleSheet("font:18px");
-
+//    ui->label->setStyleSheet("font:18px");
     QString str ;
     str = ui->label_1->text();
     ui->label_1->setText(str+Tcp_Rxdata.noxious_gas);
@@ -141,9 +153,6 @@ void MainWindow::Init_label()
     ui->label_15->setText(str+Tcp_Rxdata.noxious_gas);
     str = ui->label_16->text();
     ui->label_16->setText(str+Tcp_Rxdata.noxious_gas);
-
-
-
 }
 
 void MainWindow::RefreshTime()
@@ -153,28 +162,42 @@ void MainWindow::RefreshTime()
     QString current_week = current_date_time.toString("dddd");
     ui->lcdNumber->display(current_date);
     ui->week->setText("  "+current_week);
-
+//    system("/home/zhanghuan/autoweather.sh");
     get_APIdata();
     get_UARTdata();
 
+    Show_Tcp_stat();
+
+
 }
 
-void MainWindow::NewCon()
+void MainWindow::Show_Tcp_stat()
 {
-    qDebug()<< "have cline\r\n";
+    if(Cli_Num != 0)
+    {
+        ui->label_17->setStyleSheet("border-image:url(:/qrc/green.png);");
+    }else{
+        ui->label_17->setStyleSheet("border-image:url(:/qrc/red.png);");
+    }
+
 
 }
+
 
 void MainWindow::newClient()
 {
        QTcpSocket *tcpClient = Qser->nextPendingConnection();
-       qDebug() << "Client connected: ";
+       qDebug() << "Client connected ";
        connect(tcpClient, SIGNAL(disconnected()), tcpClient, SLOT(deleteLater()));
        connect(tcpClient, SIGNAL(readyRead()), this, SLOT(readData()));
+       Cli_Num++;
 }
 
 void MainWindow::deleteLater()
 {
+    if(Cli_Num > 0)
+        Cli_Num--;
+
     qDebug() << "Client disconnect: ";
 
 }
@@ -194,14 +217,33 @@ void MainWindow::readData()
         qDebug()<< s;
 //      str += s;
     }
-
 }
+
 void MainWindow::get_UARTdata()
 {
 
 }
 void MainWindow::get_APIdata()
 {
+    File_Open(File_Path);
+
+    API_data.tmp = get_json(File_line[0],"tmp");
+    API_data.cond_txt =get_json(File_line[0],"cond_tx1");
+    API_data.fl= get_json(File_line[0],"fl");
+    API_data.wind_dir= get_json(File_line[0],"wind_dir");
+    API_data.wind_sc= get_json(File_line[0],"wind_sc");
+    API_data.hum= get_json(File_line[0],"hum");
+    API_data.vis= get_json(File_line[0],"vis");
+
+    API_data.comf= get_json(File_line[1],"tx1");
+    API_data.drsg= get_json(File_line[1],"tx2");
+    API_data.flu= get_json(File_line[1],"tx3");
+    API_data.sport= get_json(File_line[1],"tx4");
+    API_data.trav= get_json(File_line[1],"tx5");
+    API_data.uv= get_json(File_line[1],"tx6");
+    API_data.cw= get_json(File_line[1],"tx7");
+    API_data.air= get_json(File_line[1],"tx8");
+    qDebug()<<API_data.comf;
 
 
 }
@@ -259,13 +301,12 @@ QString MainWindow::get_json(QByteArray line,QString value)
             deal_data(object,value,&rstr);
          }
     }
-    qDebug()<<rstr;
+//    qDebug()<<rstr;
     return rstr;
 }
 
 void MainWindow::exit()
 {
-    qDebug()<<"tt";
     exit();
 }
 MainWindow::~MainWindow()
