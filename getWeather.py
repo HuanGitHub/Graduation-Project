@@ -1,4 +1,6 @@
+#!/usr/bin/python3
 import urllib.request
+import os
 import json
 Wea_url = "https://free-api.heweather.com/s6/weather/now?location=CN101070201&key=e5a835b982ba40d9a897b42b5b8c883f"
 Lif_url = "https://free-api.heweather.com/s6/weather/lifestyle?location=CN101070201&key=e5a835b982ba40d9a897b42b5b8c883f"
@@ -14,6 +16,8 @@ def getWeather(url):
         if(index > 1):
             txt = txt[:index+2] + str(a) + txt[index+3:]
     print(txt)
+    f = open("./data.json","w")
+
 #    dejson = json.loads(txt)
 #    print(dejson)
 

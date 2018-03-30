@@ -164,7 +164,7 @@ void MainWindow::RefreshTime()
     QString current_week = current_date_time.toString("dddd");
     ui->lcdNumber->display(current_date);
     ui->week->setText("  "+current_week);
-    system("../autoweather.sh");
+    system("/home/zhanghuan/getWeather.py >> data");
     get_APIdata();
     get_UARTdata();
 
