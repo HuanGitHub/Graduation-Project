@@ -15,12 +15,16 @@ def getWeather(url):
         a += 1
         if(index > 1):
             txt = txt[:index+2] + str(a) + txt[index+3:]
-    print(txt)
-    f = open("./data.json","w")
-
+    return txt
 #    dejson = json.loads(txt)
 #    print(dejson)
 
+def write_txt():
+    txt = getWeather(Wea_url)
+    txt = txt +'\n' + getWeather(Lif_url) + '\n'
+    f = open("/home/zhanghuan/Graduation-Project/Graduation-Project/untitled/qrc/data.json","w")
+    f.write(txt)
+    f.close()
 def deal_data(json):
     if(isinstance(json,dict)):
         for i in list(json.keys()):
@@ -34,6 +38,4 @@ def deal_data(json):
         print("Center: ",json)
 
 if __name__ == '__main__':
-    getWeather(Wea_url)
-#    getWeather(Air_url)
-    getWeather(Lif_url)
+    write_txt()

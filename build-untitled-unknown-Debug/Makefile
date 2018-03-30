@@ -310,8 +310,11 @@ compiler_rcc_make_all: qrc_qrc.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_qrc.cpp
 qrc_qrc.cpp: ../untitled/qrc.qrc \
+		../untitled/qrc/green.png \
 		../untitled/qrc/bg1.png \
-		../untitled/qrc/bg.png
+		../untitled/qrc/data.json \
+		../untitled/qrc/bg.png \
+		../untitled/qrc/red.png
 	/usr/lib/i386-linux-gnu/qt5/bin/rcc -name qrc ../untitled/qrc.qrc -o qrc_qrc.cpp
 
 compiler_moc_header_make_all: moc_mainwindow.cpp

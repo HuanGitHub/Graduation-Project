@@ -11,7 +11,8 @@
 #include <QImage>
 #include <QDir>
 #define Ser_IP  "192.168.0.109"
-QString File_Path = ":/data.json";
+QString File_Path = "/home/zhanghuan/Graduation-Project/Graduation-Project/untitled/qrc/data.json";
+char *Py_Path = "/home/zhanghuan/Graduation-Project/Graduation-Project/getWeather.py";
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -30,6 +31,8 @@ MainWindow::MainWindow(QWidget *parent) :
     timer1->start(1000);
 
     connect(ui->pushButton_exit,SIGNAL(clicked()),this,SLOT(exit()));
+
+    system(Py_Path);
 
 }
 void MainWindow::File_Open(QString File_path)
@@ -88,6 +91,7 @@ void MainWindow::statShowUI()
 
     ui->frame->setStyleSheet("background-color:#009ACD;");
     ui->centralWidget->setStyleSheet("background-color:#96CDCD;");
+
 }
 
 void MainWindow::Init_label()
@@ -164,7 +168,7 @@ void MainWindow::RefreshTime()
     QString current_week = current_date_time.toString("dddd");
     ui->lcdNumber->display(current_date);
     ui->week->setText("  "+current_week);
-    system("/home/zhanghuan/getWeather.py >> data");
+
     get_APIdata();
     get_UARTdata();
 

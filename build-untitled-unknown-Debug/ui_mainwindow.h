@@ -59,6 +59,7 @@ public:
     QPushButton *pushButton_exit;
     QPushButton *pushButton_door;
     QPushButton *pushButton_light;
+    QLabel *label_17;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -79,7 +80,7 @@ public:
         lcdNumber->setCursor(QCursor(Qt::BlankCursor));
         frame = new QFrame(centralWidget);
         frame->setObjectName(QStringLiteral("frame"));
-        frame->setGeometry(QRect(0, 230, 271, 371));
+        frame->setGeometry(QRect(20, 220, 271, 371));
         frame->setFrameShape(QFrame::StyledPanel);
         frame->setFrameShadow(QFrame::Raised);
         verticalLayoutWidget = new QWidget(frame);
@@ -117,7 +118,7 @@ public:
 
         frame_2 = new QFrame(centralWidget);
         frame_2->setObjectName(QStringLiteral("frame_2"));
-        frame_2->setGeometry(QRect(550, 210, 491, 441));
+        frame_2->setGeometry(QRect(610, 200, 491, 441));
         frame_2->setFrameShape(QFrame::StyledPanel);
         frame_2->setFrameShadow(QFrame::Raised);
         verticalLayoutWidget_4 = new QWidget(frame_2);
@@ -158,6 +159,12 @@ public:
 
         verticalLayout_4->addWidget(label_16);
 
+        label_11->raise();
+        label_12->raise();
+        label_13->raise();
+        label_14->raise();
+        label_16->raise();
+        label_15->raise();
         week = new QLabel(centralWidget);
         week->setObjectName(QStringLiteral("week"));
         week->setGeometry(QRect(1139, 730, 61, 38));
@@ -216,6 +223,9 @@ public:
         pushButton_light = new QPushButton(centralWidget);
         pushButton_light->setObjectName(QStringLiteral("pushButton_light"));
         pushButton_light->setGeometry(QRect(810, 660, 101, 41));
+        label_17 = new QLabel(centralWidget);
+        label_17->setObjectName(QStringLiteral("label_17"));
+        label_17->setGeometry(QRect(910, 740, 21, 21));
         MainWindow->setCentralWidget(centralWidget);
         frame->raise();
         frame_2->raise();
@@ -227,6 +237,7 @@ public:
         pushButton_exit->raise();
         pushButton_door->raise();
         pushButton_light->raise();
+        label_17->raise();
 
         retranslateUi(MainWindow);
 
@@ -257,6 +268,7 @@ public:
         pushButton_exit->setText(QApplication::translate("MainWindow", "EXIT", 0));
         pushButton_door->setText(QApplication::translate("MainWindow", "Open door", 0));
         pushButton_light->setText(QApplication::translate("MainWindow", "Open light", 0));
+        label_17->setText(QString());
     } // retranslateUi
 
 };
