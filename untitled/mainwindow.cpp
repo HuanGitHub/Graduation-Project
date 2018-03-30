@@ -9,8 +9,9 @@
 #include <QTimer>
 #include <QDateTime>
 #include <QImage>
+#include <QDir>
 #define Ser_IP  "192.168.0.109"
-QString File_Path = "./data.json";
+QString File_Path = ":/data.json";
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,7 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     Cli_Num = 0;
     timer1 = new QTimer();
-
+    QString path = QDir::currentPath();//当前路径
+    qDebug() << path;
     ui->setupUi(this);
     statShowUI();
     Init_label();
@@ -162,7 +164,7 @@ void MainWindow::RefreshTime()
     QString current_week = current_date_time.toString("dddd");
     ui->lcdNumber->display(current_date);
     ui->week->setText("  "+current_week);
-//    system("/home/zhanghuan/autoweather.sh");
+    system("../autoweather.sh");
     get_APIdata();
     get_UARTdata();
 

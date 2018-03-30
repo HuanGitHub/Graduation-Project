@@ -4,5 +4,6 @@
         <file>qrc/bg1.png</file>
         <file>qrc/green.png</file>
         <file>qrc/red.png</file>
+        <file>data.json</file>
     </qresource>
 </RCC>
