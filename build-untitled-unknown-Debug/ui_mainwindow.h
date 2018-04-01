@@ -263,7 +263,7 @@ public:
         frame_3->setFrameShadow(QFrame::Raised);
         verticalLayoutWidget_5 = new QWidget(frame_3);
         verticalLayoutWidget_5->setObjectName(QStringLiteral("verticalLayoutWidget_5"));
-        verticalLayoutWidget_5->setGeometry(QRect(20, 30, 171, 301));
+        verticalLayoutWidget_5->setGeometry(QRect(20, 30, 171, 291));
         verticalLayout_5 = new QVBoxLayout(verticalLayoutWidget_5);
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setContentsMargins(11, 11, 11, 11);
