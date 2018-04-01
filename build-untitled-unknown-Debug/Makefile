@@ -312,7 +312,6 @@ compiler_rcc_clean:
 qrc_qrc.cpp: ../untitled/qrc.qrc \
 		../untitled/qrc/green.png \
 		../untitled/qrc/bg1.png \
-		../untitled/qrc/data.json \
 		../untitled/qrc/bg.png \
 		../untitled/qrc/red.png
 	/usr/lib/i386-linux-gnu/qt5/bin/rcc -name qrc ../untitled/qrc.qrc -o qrc_qrc.cpp

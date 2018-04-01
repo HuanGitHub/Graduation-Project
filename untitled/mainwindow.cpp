@@ -10,9 +10,13 @@
 #include <QDateTime>
 #include <QImage>
 #include <QDir>
-#define Ser_IP  "192.168.0.109"
+#define Ser_IP  "192.168.0.104"
 QString File_Path = "/home/zhanghuan/Graduation-Project/Graduation-Project/untitled/qrc/data.json";
 char *Py_Path = "/home/zhanghuan/Graduation-Project/Graduation-Project/getWeather.py";
+QStringList UART_RXdata;
+QStringList labellist;
+
+static int Rdata_tim =0;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -32,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->pushButton_exit,SIGNAL(clicked()),this,SLOT(exit()));
 
-    system(Py_Path);
+//    system(Py_Path);
 
 }
 void MainWindow::File_Open(QString File_path)
@@ -56,6 +60,7 @@ void MainWindow::Open_TCPServer()
     Qser = new QTcpServer(this);
     Qser->listen(QHostAddress(Ser_IP),8080);
     connect(Qser, SIGNAL(newConnection()), this, SLOT(newClient()));
+
 }
 void MainWindow::statShowUI()
 {
@@ -96,17 +101,6 @@ void MainWindow::statShowUI()
 
 void MainWindow::Init_label()
 {
-    Tcp_Rxdata.air_quality="NULL";
-    Tcp_Rxdata.Bright_intensity="NULL";
-    Tcp_Rxdata.humidity="NULL";
-    Tcp_Rxdata.noxious_gas="NULL";
-    Tcp_Rxdata.temperature="NULL";
-
-//    ui->temp_l->setText(Tcp_Rxdata.temperature);
-//    ui->hum_l->setText(Tcp_Rxdata.humidity);
-//    ui->air_l->setText(Tcp_Rxdata.air_quality);
-//    ui->briint_l->setText(Tcp_Rxdata.Bright_intensity);
-//    ui->ngas_l->setText(Tcp_Rxdata.noxious_gas);
     ui->label_1->setStyleSheet("font:18px");
     ui->label_2->setStyleSheet("font:18px");
     ui->label_3->setStyleSheet("font:18px");
@@ -123,69 +117,77 @@ void MainWindow::Init_label()
     ui->label_14->setStyleSheet("font:18px");
     ui->label_15->setStyleSheet("font:18px");
     ui->label_16->setStyleSheet("font:18px");
-//    ui->label->setStyleSheet("font:18px");
     QString str ;
     str = ui->label_1->text();
-    ui->label_1->setText(str+Tcp_Rxdata.noxious_gas);
+    labellist.append(str);
     str = ui->label_2->text();
-    ui->label_2->setText(str+Tcp_Rxdata.noxious_gas);
+    labellist.append(str);
     str = ui->label_3->text();
-    ui->label_3->setText(str+Tcp_Rxdata.noxious_gas);
+    labellist.append(str);
     str = ui->label_4->text();
-    ui->label_4->setText(str+Tcp_Rxdata.noxious_gas);
+    labellist.append(str);
     str = ui->label_5->text();
-    ui->label_5->setText(str+Tcp_Rxdata.noxious_gas);
+    labellist.append(str);
 
     str = ui->label_6->text();
-    ui->label_6->setText(str+Tcp_Rxdata.noxious_gas);
+    labellist.append(str);
     str = ui->label_7->text();
-    ui->label_7->setText(str+Tcp_Rxdata.noxious_gas);
+    labellist.append(str);
     str = ui->label_8->text();
-    ui->label_8->setText(str+Tcp_Rxdata.noxious_gas);
+    labellist.append(str);
     str = ui->label_9->text();
-    ui->label_9->setText(str+Tcp_Rxdata.noxious_gas);
+    labellist.append(str);
     str = ui->label_10->text();
-    ui->label_10->setText(str+Tcp_Rxdata.noxious_gas);
+    labellist.append(str);
     str = ui->label_11->text();
-    ui->label_11->setText(str+Tcp_Rxdata.noxious_gas);
+    labellist.append(str);
 
     str = ui->label_12->text();
-    ui->label_12->setText(str+Tcp_Rxdata.noxious_gas);
+    labellist.append(str);
     str = ui->label_13->text();
-    ui->label_13->setText(str+Tcp_Rxdata.noxious_gas);
+    labellist.append(str);
     str = ui->label_14->text();
-    ui->label_14->setText(str+Tcp_Rxdata.noxious_gas);
+    labellist.append(str);
     str = ui->label_15->text();
-    ui->label_15->setText(str+Tcp_Rxdata.noxious_gas);
+    labellist.append(str);
     str = ui->label_16->text();
-    ui->label_16->setText(str+Tcp_Rxdata.noxious_gas);
+
 }
 
 void MainWindow::RefreshTime()
 {
+
     QDateTime current_date_time = QDateTime::currentDateTime();
     QString current_date = current_date_time.toString("yyyy.MM.dd hh:mm:ss");
     QString current_week = current_date_time.toString("dddd");
     ui->lcdNumber->display(current_date);
     ui->week->setText("  "+current_week);
-
     get_APIdata();
     get_UARTdata();
-
     Show_Tcp_stat();
 
 
 }
 
+int i;
 void MainWindow::Show_Tcp_stat()
 {
-    if(Cli_Num != 0)
+    static int i;
+    static int lastTim;
+
+    if(Cli_Num > 0)
     {
-        ui->label_17->setStyleSheet("border-image:url(:/qrc/green.png);");
+        if( i == 0){
+            i = 1;
+            ui->label_17->setStyleSheet("border-image:url(:/qrc/green.png);");
+        }else
+        {
+            i = 0;
+            ui->label_17->setStyleSheet("background-color:#96CDCD;");
+        }
     }else{
         ui->label_17->setStyleSheet("border-image:url(:/qrc/red.png);");
     }
-
 
 }
 
@@ -194,8 +196,9 @@ void MainWindow::newClient()
 {
        QTcpSocket *tcpClient = Qser->nextPendingConnection();
        qDebug() << "Client connected ";
-       connect(tcpClient, SIGNAL(disconnected()), tcpClient, SLOT(deleteLater()));
+       connect(tcpClient, SIGNAL(disconnected()), this, SLOT(deleteLater()));
        connect(tcpClient, SIGNAL(readyRead()), this, SLOT(readData()));
+
        Cli_Num++;
 }
 
@@ -203,16 +206,16 @@ void MainWindow::deleteLater()
 {
     if(Cli_Num > 0)
         Cli_Num--;
-
     qDebug() << "Client disconnect: ";
 
 }
 
 void MainWindow::readData()
 {
+    Rdata_tim ++;
     QTcpSocket* myClient = qobject_cast<QTcpSocket*>(sender());
     QByteArray data = myClient->readAll();
-    QString str;
+    QStringList UART_Rxlist;
 
     for(int i=0;i<data.count();i++)
     {
@@ -220,13 +223,50 @@ void MainWindow::readData()
         s.sprintf("0x%02x",(unsigned char)data.at(i));
         int k = s.toInt(0,16);
         s = QString::number(k, 10);
-        qDebug()<< s;
-//      str += s;
+//        qDebug()<< s;
+        UART_Rxlist.append(s);
     }
+
+    QString t1 = UART_Rxlist.value(6);
+    QString t2 = UART_Rxlist.value(8);
+    QString t3 = UART_Rxlist.value(7);
+    QString t4 = UART_Rxlist.value(9);
+    int tem1 = t1.toInt();
+    int tem2 = t2.toInt();
+    int tem3 = t3.toInt();
+    int tem4 = t4.toInt();
+
+    tem1 = (tem1 *256) +tem3;
+    tem2 = (tem4 *256) +tem2;
+    UART_Rxlist.insert(6,QString::number(tem1,10));
+    UART_Rxlist.insert(8,QString::number(tem2,10));
+//    qDebug()<<"tem1" <<  UART_Rxlist.value(6) <<"tem2"<<UART_Rxlist.value(8);
+
+    UART_RXdata = UART_Rxlist;
+
 }
 
 void MainWindow::get_UARTdata()
 {
+
+    Tcp_Rxdata.air = UART_RXdata.value(5);
+    Tcp_Rxdata.Bright= UART_RXdata.value(8);
+    Tcp_Rxdata.gas= UART_RXdata.value(6);
+    Tcp_Rxdata.hum= UART_RXdata.value(1);
+    Tcp_Rxdata.temp= UART_RXdata.value(3);
+
+
+    ui->label_1->setText(labellist.value(0)+Tcp_Rxdata.temp);
+    ui->label_2->setText(labellist.value(1)+Tcp_Rxdata.hum);
+    ui->label_3->setText(labellist.value(2)+Tcp_Rxdata.Bright);
+
+    ui->label_4->setText(labellist.value(3)+Tcp_Rxdata.air);
+//    qDebug()<<"labellist.value(3): "<<labellist.value(3);
+    ui->label_5->setText(labellist.value(4)+Tcp_Rxdata.gas);
+//    qDebug()<<"labellist.value(4): "<<labellist.value(4);
+//    qDebug()<<"gas: "<<Tcp_Rxdata.gas <<"air" << Tcp_Rxdata.air;
+
+
 
 }
 void MainWindow::get_APIdata()
@@ -249,10 +289,34 @@ void MainWindow::get_APIdata()
     API_data.uv= get_json(File_line[1],"tx6");
     API_data.cw= get_json(File_line[1],"tx7");
     API_data.air= get_json(File_line[1],"tx8");
-    qDebug()<<API_data.comf;
+//    qDebug()<<API_data.comf;
+
+    ui->label_6->setText(labellist.value(5) +API_data.tmp );
+    ui->label_7->setText(labellist.value(6) + API_data.fl);
+    ui->label_8->setText(labellist.value(7) + API_data.hum);
+    ui->label_9->setText(labellist.value(8) + API_data.cond_txt);
+    ui->label_10->setText(labellist.value(9)+ API_data.wind_sc);
+
+//    ui->label_11->setText(labellist.value(10)+ API_data.sport);
+//    ui->label_12->setText(labellist.value(11) + API_data.trav);
+//    ui->label_13->setText(labellist.value(12) + API_data.uv);
+//    ui->label_14->setText(labellist.value(13) +API_data.cw);
+//    ui->label_15->setText(labellist.value(14) + API_data.air);
+//    ui->label_16->setText(labellist.value(15) +API_data.flu);
+
+    ui->textEdit_2->setText(API_data.uv);
+    ui->textEdit_3->setText(API_data.sport);
+    ui->textEdit_4->setText(API_data.comf);
+    ui->textEdit_5->setText(API_data.flu);
+    ui->textEdit_6->setText(API_data.air);
+    ui->textEdit_7->setText(API_data.drsg);
+
+
+
 
 
 }
+
 
 void MainWindow::deal_data(QJsonObject Jobject,QString str,QString *rstr)
 {

@@ -21,11 +21,11 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     QByteArray File_line[256];
     struct TCP_Rxdata{
-         QString temperature;
-         QString humidity;
-         QString Bright_intensity;
-         QString air_quality;
-         QString noxious_gas;
+         QString temp;
+         QString hum;
+         QString Bright;
+         QString air;
+         QString gas;
     }Tcp_Rxdata;
 
     struct API_DATA{

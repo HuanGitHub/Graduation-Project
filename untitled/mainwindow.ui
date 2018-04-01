@@ -40,10 +40,10 @@
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>220</y>
-      <width>271</width>
-      <height>371</height>
+      <width>191</width>
+      <height>321</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -55,58 +55,78 @@
     <widget class="QWidget" name="verticalLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>20</y>
-       <width>241</width>
-       <height>281</height>
+       <x>20</x>
+       <y>30</y>
+       <width>171</width>
+       <height>291</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QLabel" name="label_1">
         <property name="text">
-         <string> temperature: </string>
+         <string>温      度 ：</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>humidity :</string>
+         <string>湿       度 ：</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>Bright intensity :</string>
+         <string>光        亮 ：</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_4">
         <property name="text">
-         <string>air quality : </string>
+         <string>空气质量 ：</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_5">
         <property name="text">
-         <string>noxious gas : </string>
+         <string>有害气体 ：</string>
         </property>
        </widget>
       </item>
      </layout>
     </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>室内环境 ：</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QFrame" name="frame_2">
     <property name="geometry">
      <rect>
-      <x>610</x>
+      <x>480</x>
       <y>200</y>
-      <width>491</width>
-      <height>441</height>
+      <width>701</width>
+      <height>451</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -118,52 +138,52 @@
     <widget class="QWidget" name="verticalLayoutWidget_4">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>40</x>
        <y>30</y>
-       <width>606</width>
-       <height>371</height>
+       <width>91</width>
+       <height>401</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
        <widget class="QLabel" name="label_11">
         <property name="text">
-         <string>sport index</string>
+         <string>运动指数 ：</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_12">
         <property name="text">
-         <string>Comfort index</string>
+         <string>舒适指数 ：</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_13">
         <property name="text">
-         <string>Air quality</string>
+         <string>空气质量 ：</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_14">
         <property name="text">
-         <string>A cold index</string>
+         <string>感冒指数 ：</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_15">
         <property name="text">
-         <string>Dressing index</string>
+         <string>穿衣指数 ：</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_16">
         <property name="text">
-         <string>Uv index</string>
+         <string>紫外线指数 ：</string>
         </property>
        </widget>
       </item>
@@ -174,6 +194,59 @@
      <zorder>label_14</zorder>
      <zorder>label_16</zorder>
      <zorder>label_15</zorder>
+    </widget>
+    <widget class="QWidget" name="verticalLayoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>30</y>
+       <width>561</width>
+       <height>401</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>13</number>
+      </property>
+      <item>
+       <widget class="QTextEdit" name="textEdit_3"/>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="textEdit_4"/>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="textEdit_6"/>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="textEdit_5"/>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="textEdit_7"/>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="textEdit_2"/>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QLabel" name="label_19">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>生活贴士 ：</string>
+     </property>
     </widget>
    </widget>
    <widget class="QLabel" name="week">
@@ -224,53 +297,6 @@
     <property name="text">
      <string/>
     </property>
-   </widget>
-   <widget class="QWidget" name="verticalLayoutWidget_5">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>240</y>
-      <width>201</width>
-      <height>381</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_5">
-     <item>
-      <widget class="QLabel" name="label_6">
-       <property name="text">
-        <string>The direction of the wind</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_7">
-       <property name="text">
-        <string>Body feeling temperature</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_8">
-       <property name="text">
-        <string>Relative humidity</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_9">
-       <property name="text">
-        <string>Wind</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_10">
-       <property name="text">
-        <string>The temperature</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </widget>
    <widget class="QPushButton" name="pushButton_exit">
     <property name="geometry">
@@ -324,17 +350,100 @@
      <string/>
     </property>
    </widget>
+   <widget class="QFrame" name="frame_3">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>220</y>
+      <width>191</width>
+      <height>321</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QWidget" name="verticalLayoutWidget_5">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>171</width>
+       <height>301</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_5">
+      <item>
+       <widget class="QLabel" name="label_10">
+        <property name="text">
+         <string>温        度 ：</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>体感温度 ：</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>湿         度 ：</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_9">
+        <property name="text">
+         <string>天        气 ：</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>风        力 ：</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QLabel" name="label_18">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>室外环境 ：</string>
+     </property>
+    </widget>
+   </widget>
    <zorder>frame</zorder>
    <zorder>frame_2</zorder>
    <zorder>week</zorder>
    <zorder>lcdNumber</zorder>
    <zorder>frame_Head</zorder>
    <zorder>local_city</zorder>
-   <zorder>verticalLayoutWidget_5</zorder>
    <zorder>pushButton_exit</zorder>
    <zorder>pushButton_door</zorder>
    <zorder>pushButton_light</zorder>
    <zorder>label_17</zorder>
+   <zorder>frame_3</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
