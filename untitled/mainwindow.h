@@ -1,13 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
 #include <QMainWindow>
 #include <QtNetwork/qtcpserver.h>
 #include <qjsondocument.h>
 #include <QTime>
 #include <QtNetwork/qtcpserver.h>
 #include <QImage>
-#define Ser_IP "127.0.0.1"
+#define Ser_IP  "192.168.0.104"
 #define Ser_Port 8080
 namespace Ui {
 class MainWindow;

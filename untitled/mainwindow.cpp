@@ -10,13 +10,12 @@
 #include <QDateTime>
 #include <QImage>
 #include <QDir>
-#define Ser_IP  "192.168.0.104"
+
 QString File_Path = "/home/zhanghuan/Graduation-Project/Graduation-Project/untitled/qrc/data.json";
 char *Py_Path = "/home/zhanghuan/Graduation-Project/Graduation-Project/getWeather.py";
+
 QStringList UART_RXdata;
 QStringList labellist;
-
-static int Rdata_tim =0;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -212,7 +211,7 @@ void MainWindow::deleteLater()
 
 void MainWindow::readData()
 {
-    Rdata_tim ++;
+
     QTcpSocket* myClient = qobject_cast<QTcpSocket*>(sender());
     QByteArray data = myClient->readAll();
     QStringList UART_Rxlist;
