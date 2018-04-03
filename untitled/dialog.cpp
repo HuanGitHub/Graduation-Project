@@ -9,7 +9,9 @@ Dialog::Dialog(QWidget *parent) :
     ui->setupUi(this);
     ui->lineEdit_2->setEchoMode(QLineEdit::Password);
     ui->label->setAttribute(Qt::WA_TranslucentBackground);
-    ui->frame->setStyleSheet("border-image:url(:/qrc/login.jpg);");
+    ui->label_2->setAttribute(Qt::WA_TranslucentBackground);
+
+    ui->frame->setStyleSheet("border-image:url(:/qrc/login.png);");
     ui->label->setStyleSheet("color:blue;");
     ui->label_2->setStyleSheet("color:blue;");
     connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(show_page()));

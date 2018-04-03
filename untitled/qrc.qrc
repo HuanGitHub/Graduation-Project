@@ -4,6 +4,6 @@
         <file>qrc/bg1.png</file>
         <file>qrc/green.png</file>
         <file>qrc/red.png</file>
-        <file>qrc/login.jpg</file>
+        <file>qrc/login.png</file>
     </qresource>
 </RCC>
