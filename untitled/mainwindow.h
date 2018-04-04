@@ -6,7 +6,7 @@
 #include <QTime>
 #include <QtNetwork/qtcpserver.h>
 #include <QImage>
-#define Ser_IP  "192.168.0.104"
+#define Ser_IP  "127.0.0.1"
 #define Ser_Port 8080
 namespace Ui {
 class MainWindow;
@@ -19,6 +19,10 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     QByteArray File_line[256];
+    char Tx_data = '0';
+
+    int lab_flag_l =0 ;
+    int lab_flag_d = 0;
     struct TCP_Rxdata{
          QString temp;
          QString hum;
@@ -44,9 +48,6 @@ public:
         QString uv;
         QString cw;
         QString air;
-
-
-
     }API_data;
     ~MainWindow();
     void NewCon();
@@ -60,6 +61,9 @@ public:
     void Open_TCPServer();
     void Show_Tcp_stat();
     void File_Open(QString File_path);
+    void Write_Data(QTcpSocket *tcpClient);
+    void make_UARTdata(QByteArray data);
+
 private slots:
     void newClient();
     void deleteLater();
@@ -67,6 +71,10 @@ private slots:
     void RefreshTime();
     void exit();
 
+
+    void on_pushButton_door_clicked();
+
+    void on_pushButton_light_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -76,6 +84,7 @@ private:
     QTimer *timer1;
     int Cli_Num;
     QImage* img;
+    QTcpSocket *tcpClient;
 
 
 };

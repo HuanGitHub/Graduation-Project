@@ -10,7 +10,7 @@ Dialog::Dialog(QWidget *parent) :
     ui->lineEdit_2->setEchoMode(QLineEdit::Password);
     ui->label->setAttribute(Qt::WA_TranslucentBackground);
     ui->label_2->setAttribute(Qt::WA_TranslucentBackground);
-
+//    this->setWindowFlags(Qt::FramelessWindowHint);
     ui->frame->setStyleSheet("border-image:url(:/qrc/login.png);");
     ui->label->setStyleSheet("color:blue;");
     ui->label_2->setStyleSheet("color:blue;");

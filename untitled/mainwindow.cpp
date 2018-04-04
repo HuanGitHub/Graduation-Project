@@ -10,7 +10,7 @@
 #include <QDateTime>
 #include <QImage>
 #include <QDir>
-
+#include <string.h>
 QString File_Path = "/home/zhanghuan/Graduation-Project/Graduation-Project/untitled/qrc/data.json";
 char *Py_Path = "/home/zhanghuan/Graduation-Project/Graduation-Project/getWeather.py";
 
@@ -34,7 +34,6 @@ MainWindow::MainWindow(QWidget *parent) :
     timer1->start(1000);
 
     connect(ui->pushButton_exit,SIGNAL(clicked()),this,SLOT(exit()));
-
 //    system(Py_Path);
 
 }
@@ -161,8 +160,8 @@ void MainWindow::RefreshTime()
     QString current_week = current_date_time.toString("dddd");
     ui->lcdNumber->display(current_date);
     ui->week->setText("  "+current_week);
-    get_APIdata();
-    get_UARTdata();
+ //   get_APIdata();
+ //   get_UARTdata();
     Show_Tcp_stat();
 
 
@@ -193,7 +192,7 @@ void MainWindow::Show_Tcp_stat()
 
 void MainWindow::newClient()
 {
-       QTcpSocket *tcpClient = Qser->nextPendingConnection();
+       tcpClient = Qser->nextPendingConnection();
        qDebug() << "Client connected ";
        connect(tcpClient, SIGNAL(disconnected()), this, SLOT(deleteLater()));
        connect(tcpClient, SIGNAL(readyRead()), this, SLOT(readData()));
@@ -209,13 +208,23 @@ void MainWindow::deleteLater()
 
 }
 
-void MainWindow::readData()
+void MainWindow::Write_Data(QTcpSocket *tcpClient)
 {
+    if(Tx_data != '0')
+    {
+//        qDebug("Tx_Data: %c",Tx_data);
+        tcpClient->write(&Tx_data);
+        Tx_data = '0';
+//        qDebug("Tx_Data: %c",Tx_data);
+    }else{
+        tcpClient->write(&Tx_data);
+//        qDebug("no have data send");
+    }
 
-    QTcpSocket* myClient = qobject_cast<QTcpSocket*>(sender());
-    QByteArray data = myClient->readAll();
+}
+void MainWindow::make_UARTdata(QByteArray data)
+{
     QStringList UART_Rxlist;
-
     for(int i=0;i<data.count();i++)
     {
         QString s;
@@ -242,6 +251,15 @@ void MainWindow::readData()
 //    qDebug()<<"tem1" <<  UART_Rxlist.value(6) <<"tem2"<<UART_Rxlist.value(8);
 
     UART_RXdata = UART_Rxlist;
+}
+void MainWindow::readData()
+{
+    QByteArray data = tcpClient->readAll();
+
+
+    Write_Data(tcpClient);
+
+    make_UARTdata(data);
 
 }
 
@@ -386,3 +404,36 @@ MainWindow::~MainWindow()
 
 
 
+
+void MainWindow::on_pushButton_door_clicked()
+{
+
+    if(lab_flag_d == 1)
+    {
+        lab_flag_d = 0;
+        ui->pushButton_door->setText("open door");
+        Tx_data = '1';
+
+    }else{
+        lab_flag_d = 1;
+        ui->pushButton_door->setText("close door");
+        Tx_data = '2';
+
+    }
+//    qDebug()<<Tx_data;
+}
+
+void MainWindow::on_pushButton_light_clicked()
+{
+    if(lab_flag_l == 1)
+    {
+        lab_flag_l = 0;
+        ui->pushButton_light->setText("open light");
+        Tx_data = '3';
+    }else{
+        lab_flag_l = 1;
+        ui->pushButton_light->setText("close light");
+        Tx_data = '4';
+    }
+
+}
