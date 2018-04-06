@@ -6,7 +6,8 @@
 #include <QTime>
 #include <QtNetwork/qtcpserver.h>
 #include <QImage>
-#define Ser_IP  "127.0.0.1"
+#include "videodevice.h"
+#define Ser_IP  "192.168.0.107"
 #define Ser_Port 8080
 namespace Ui {
 class MainWindow;
@@ -49,6 +50,7 @@ public:
         QString cw;
         QString air;
     }API_data;
+
     ~MainWindow();
     void NewCon();
     void checkData();
@@ -64,12 +66,21 @@ public:
     void Write_Data(QTcpSocket *tcpClient);
     void make_UARTdata(QByteArray data);
 
+    unsigned char * yuv_buffer_pointer;
+    unsigned char *MAP_BUFF;
+    VideoDevice *vd;
+    int rs;
+    unsigned int len;
+    QPixmap map;
+    void zhuanhuan(unsigned char * yuv_buffer_pointer,unsigned char *t);
+
 private slots:
     void newClient();
     void deleteLater();
     void readData();
     void RefreshTime();
     void exit();
+    void paintEvent(QPaintEvent *);
 
 
     void on_pushButton_door_clicked();
@@ -82,7 +93,7 @@ private:
     QByteArray arry;
     QJsonDocument doucment;
     QTimer *timer1;
-    int Cli_Num;
+    int Cli_Num = 0;
     QImage* img;
     QTcpSocket *tcpClient;
 

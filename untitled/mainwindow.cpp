@@ -11,32 +11,56 @@
 #include <QImage>
 #include <QDir>
 #include <string.h>
-QString File_Path = "/home/zhanghuan/Graduation-Project/Graduation-Project/untitled/qrc/data.json";
-char *Py_Path = "/home/zhanghuan/Graduation-Project/Graduation-Project/getWeather.py";
+QString File_Path = "/home/pi/Graduation-Project/untitled/qrc/data.json";
+char *Py_Path = "/home/pi/Graduation-Project/getWeather.py";
 
 QStringList UART_RXdata;
 QStringList labellist;
-
+int Tim=0;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    Cli_Num = 0;
-    timer1 = new QTimer();
-    QString path = QDir::currentPath();//当前路径
-    qDebug() << path;
     ui->setupUi(this);
+    timer1 = new QTimer();
+
+    vd = new VideoDevice(tr("/dev/video0"));
+    MAP_BUFF =(unsigned char * )calloc(1,320*480);
+
+
     statShowUI();
     Init_label();
 
     Open_TCPServer();
+
     connect(timer1, SIGNAL(timeout()), this, SLOT(RefreshTime()));
-    timer1->start(1000);
+    timer1->start(100);
 
     connect(ui->pushButton_exit,SIGNAL(clicked()),this,SLOT(exit()));
-//    system(Py_Path);
+
+    showFullScreen();
+    system(Py_Path);
 
 }
+void MainWindow::zhuanhuan(unsigned char * yuv_buffer_pointer,unsigned char *t)
+{
+
+    memcpy(t,yuv_buffer_pointer,320*480);
+}
+void MainWindow::paintEvent(QPaintEvent *)
+{
+    if(vd->fd != -1)
+    {
+        rs = vd->get_frame(&yuv_buffer_pointer,&len);
+        if(rs == 0){
+                memcpy(MAP_BUFF,yuv_buffer_pointer,len);
+        }else
+            qDebug("get fail");
+
+        rs = vd->unget_frame();
+    }
+}
+
 void MainWindow::File_Open(QString File_path)
 {
     QByteArray line;
@@ -99,22 +123,22 @@ void MainWindow::statShowUI()
 
 void MainWindow::Init_label()
 {
-    ui->label_1->setStyleSheet("font:18px");
-    ui->label_2->setStyleSheet("font:18px");
-    ui->label_3->setStyleSheet("font:18px");
-    ui->label_4->setStyleSheet("font:18px");
-    ui->label_5->setStyleSheet("font:18px");
-    ui->label_6->setStyleSheet("font:18px");
-    ui->label_7->setStyleSheet("font:18px");
-    ui->label_8->setStyleSheet("font:18px");
-    ui->label_9->setStyleSheet("font:18px");
-    ui->label_10->setStyleSheet("font:18px");
-    ui->label_11->setStyleSheet("font:18px");
-    ui->label_12->setStyleSheet("font:18px");
-    ui->label_13->setStyleSheet("font:18px");
-    ui->label_14->setStyleSheet("font:18px");
-    ui->label_15->setStyleSheet("font:18px");
-    ui->label_16->setStyleSheet("font:18px");
+    ui->label_1->setStyleSheet("font:30px");
+    ui->label_2->setStyleSheet("font:30px");
+    ui->label_3->setStyleSheet("font:30px");
+    ui->label_4->setStyleSheet("font:30px");
+    ui->label_5->setStyleSheet("font:30px");
+    ui->label_6->setStyleSheet("font:30px");
+    ui->label_7->setStyleSheet("font:30px");
+    ui->label_8->setStyleSheet("font:30px");
+    ui->label_9->setStyleSheet("font:30px");
+    ui->label_10->setStyleSheet("font:30px");
+    ui->label_11->setStyleSheet("font:30px");
+    ui->label_12->setStyleSheet("font:30px");
+    ui->label_13->setStyleSheet("font:30px");
+    ui->label_14->setStyleSheet("font:30px");
+    ui->label_15->setStyleSheet("font:30px");
+    ui->label_16->setStyleSheet("font:30px");
     QString str ;
     str = ui->label_1->text();
     labellist.append(str);
@@ -154,25 +178,32 @@ void MainWindow::Init_label()
 
 void MainWindow::RefreshTime()
 {
+    Tim ++;
+    if(Tim == 10)
+    {
+        Tim = 0;
+        QDateTime current_date_time = QDateTime::currentDateTime();
+        QString current_date = current_date_time.toString("yyyy.MM.dd hh:mm:ss");
+        QString current_week = current_date_time.toString("dddd");
+        ui->lcdNumber->display(current_date);
+        ui->week->setText("  "+current_week);
+           get_APIdata();
+           get_UARTdata();
+        Show_Tcp_stat();
+    }
 
-    QDateTime current_date_time = QDateTime::currentDateTime();
-    QString current_date = current_date_time.toString("yyyy.MM.dd hh:mm:ss");
-    QString current_week = current_date_time.toString("dddd");
-    ui->lcdNumber->display(current_date);
-    ui->week->setText("  "+current_week);
- //   get_APIdata();
- //   get_UARTdata();
-    Show_Tcp_stat();
+    unsigned char *tmp;
+    tmp = (unsigned char *)calloc(1,320*480);
+    zhuanhuan(MAP_BUFF,tmp);
 
-
+    map.loadFromData(tmp,len);
+    ui->label_20->setPixmap(map);
 }
 
-int i;
+
 void MainWindow::Show_Tcp_stat()
 {
     static int i;
-    static int lastTim;
-
     if(Cli_Num > 0)
     {
         if( i == 0){
@@ -188,7 +219,6 @@ void MainWindow::Show_Tcp_stat()
     }
 
 }
-
 
 void MainWindow::newClient()
 {
@@ -256,7 +286,6 @@ void MainWindow::readData()
 {
     QByteArray data = tcpClient->readAll();
 
-
     Write_Data(tcpClient);
 
     make_UARTdata(data);
@@ -282,8 +311,6 @@ void MainWindow::get_UARTdata()
     ui->label_5->setText(labellist.value(4)+Tcp_Rxdata.gas);
 //    qDebug()<<"labellist.value(4): "<<labellist.value(4);
 //    qDebug()<<"gas: "<<Tcp_Rxdata.gas <<"air" << Tcp_Rxdata.air;
-
-
 
 }
 void MainWindow::get_APIdata()
@@ -327,10 +354,6 @@ void MainWindow::get_APIdata()
     ui->textEdit_5->setText(API_data.flu);
     ui->textEdit_6->setText(API_data.air);
     ui->textEdit_7->setText(API_data.drsg);
-
-
-
-
 
 }
 

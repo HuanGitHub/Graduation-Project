@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>692</width>
-    <height>435</height>
+    <width>935</width>
+    <height>541</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>701</width>
-     <height>441</height>
+     <width>941</width>
+     <height>541</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -32,8 +32,8 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>450</x>
-     <y>280</y>
+     <x>550</x>
+     <y>380</y>
      <width>99</width>
      <height>27</height>
     </rect>
@@ -45,10 +45,10 @@
   <widget class="QWidget" name="verticalLayoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>150</y>
+     <x>370</x>
+     <y>190</y>
      <width>191</width>
-     <height>131</height>
+     <height>171</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2" stretch="5,5">
@@ -66,15 +66,15 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>175</y>
-     <width>50</width>
-     <height>20</height>
+     <x>300</x>
+     <y>223</y>
+     <width>71</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>15</pointsize>
+     <pointsize>20</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
@@ -86,15 +86,15 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>235</y>
-     <width>50</width>
-     <height>20</height>
+     <x>300</x>
+     <y>284</y>
+     <width>71</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>15</pointsize>
+     <pointsize>20</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>

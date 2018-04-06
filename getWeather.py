@@ -22,9 +22,10 @@ def getWeather(url):
 def write_txt():
     txt = getWeather(Wea_url)
     txt = txt +'\n' + getWeather(Lif_url) + '\n'
-    f = open("/home/zhanghuan/Graduation-Project/Graduation-Project/untitled/qrc/data.json","w")
+    f = open("/home/pi/Graduation-Project/untitled/qrc/data.json","w")
     f.write(txt)
     f.close()
+
 def deal_data(json):
     if(isinstance(json,dict)):
         for i in list(json.keys()):
