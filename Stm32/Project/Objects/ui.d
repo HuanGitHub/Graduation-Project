@@ -1,0 +1,33 @@
+.\objects\ui.o: ..\User\UI.c
+.\objects\ui.o: ..\User\UI.h
+.\objects\ui.o: ..\CMSIS\Stm32f10x.h
+.\objects\ui.o: ..\CMSIS\core_cm3.h
+.\objects\ui.o: D:\Program Files (x86)\MDK\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\ui.o: ..\CMSIS\system_stm32f10x.h
+.\objects\ui.o: ..\User\stm32f10x_conf.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_adc.h
+.\objects\ui.o: ..\CMSIS\stm32f10x.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_bkp.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_can.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_cec.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_crc.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_dac.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_dbgmcu.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_dma.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_exti.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_flash.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_fsmc.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_gpio.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_i2c.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_iwdg.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_pwr.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_rcc.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_rtc.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_sdio.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_spi.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_tim.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_usart.h
+.\objects\ui.o: ..\Driver\inc\stm32f10x_wwdg.h
+.\objects\ui.o: ..\Driver\inc\misc.h
+.\objects\ui.o: ..\User\OLED\oled.h
+.\objects\ui.o: D:\Program Files (x86)\MDK\ARM\ARMCC\Bin\..\include\stdlib.h

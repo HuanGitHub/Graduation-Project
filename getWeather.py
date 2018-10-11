@@ -22,7 +22,7 @@ def getWeather(url):
 def write_txt():
     txt = getWeather(Wea_url)
     txt = txt +'\n' + getWeather(Lif_url) + '\n'
-    f = open("/home/pi/Graduation-Project/untitled/qrc/data.json","w")
+    f = open("/home/zhanghuan/share/Git/Graduation-Project/untitled/qrc/data.json","w")
     f.write(txt)
     f.close()
 
